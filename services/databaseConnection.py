@@ -40,7 +40,7 @@ class DatabaseConnection(object):
 
     def post_article(self, articleJson: dict):
         # Get new id
-        new_id = max([art['id'] for art in self.articles])
+        new_id = max([art['id'] for art in self.articles]) + 1
 
         # Put new Id in the articleJson
         articleJson['id'] = new_id
@@ -52,5 +52,5 @@ class DatabaseConnection(object):
 
     def update_article(self, articleId, articleJson):
         articleJson['id'] = articleId
-        self.articles = [articleJson for art in self.articles if art['id'] == articleId]
+        [art.update(articleJson) for art in self.articles if art['id'] == articleId]
         return "ok"
