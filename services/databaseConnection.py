@@ -52,5 +52,5 @@ class DatabaseConnection(object):
 
     def update_article(self, articleId, articleJson):
         articleJson['id'] = articleId
-        self.articles = [articleJson for art in self.articles if art['id'] == articleId]
+        [art.update(articleJson) for art in self.articles if art['id'] == articleId]
         return "ok"
